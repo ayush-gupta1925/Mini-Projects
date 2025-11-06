@@ -8,6 +8,7 @@ const restartBtn = document.getElementById("btn");
 let jumping = 0;
 let score = 0;
 let gameRunning = true;
+let canJump = true; // New flag to prevent double jump
 
 // Create touch controls for mobile
 function createTouchControls() {
@@ -17,8 +18,10 @@ function createTouchControls() {
   const jumpButton = document.createElement("div");
   jumpButton.className = "touch-button";
   jumpButton.textContent = "↑";
-  jumpButton.addEventListener("touchstart", jump);
-  jumpButton.addEventListener("mousedown", jump);
+  
+  // Use single event listener with proper event handling
+  jumpButton.addEventListener("touchstart", handleJump);
+  jumpButton.addEventListener("mousedown", handleJump);
   
   touchControls.appendChild(jumpButton);
   document.body.appendChild(touchControls);
@@ -52,18 +55,37 @@ const fall = setInterval(function() {
 
   const blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
   const holeTop = parseInt(window.getComputedStyle(hole).getPropertyValue("top"));
-  const hTop = (500 + holeTop);
+  
+  // Get game height dynamically
+  const gameHeight = parseInt(window.getComputedStyle(game).getPropertyValue("height"));
+  const hTop = (gameHeight + holeTop);
   
   // Collision detection
   const birdHitTop = birdTop <= 0;
-  const birdHitBottom = birdTop >= 450;
-  const birdInPipeRange = blockLeft < 50 && blockLeft > -50;
-  const birdHitPipe = birdInPipeRange && (birdTop < hTop || birdTop > hTop + 100);
+  const birdHitBottom = birdTop >= (gameHeight - 50); // Bird height is 50px
+  const birdInPipeRange = blockLeft < 60 && blockLeft > -60;
+  const birdHitPipe = birdInPipeRange && (birdTop < hTop || birdTop > hTop + 150);
   
   if (birdHitTop || birdHitBottom || birdHitPipe) {
     gameOver();
   }
 }, 15);
+
+// Unified jump handler function
+function handleJump(event) {
+  event.preventDefault(); // Prevent default behavior
+  event.stopPropagation(); // Stop event bubbling
+  
+  if (!gameRunning || !canJump) return;
+  
+  canJump = false; // Prevent additional jumps
+  jump();
+  
+  // Re-enable jumping after a short delay
+  setTimeout(() => {
+    canJump = true;
+  }, 200);
+}
 
 // Jump function
 function jump() {
@@ -74,16 +96,22 @@ function jump() {
   const bird = document.getElementById("bird");
   const birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
   
+  // Calculate jump height based on game size
+  const gameHeight = parseInt(window.getComputedStyle(game).getPropertyValue("height"));
+  const jumpHeight = Math.max(60, gameHeight * 0.08); // Minimum 40px or 8% of game height
+  
   if (birdTop > 6) {
-    bird.style.top = (birdTop - 60) + "px";
+    bird.style.top = (birdTop - jumpHeight) + "px";
     // Add jump animation
     bird.style.transform = "rotate(-20deg)";
   }
 
   // Play jump sound
   const sound = document.getElementById("jump-sound");
-  sound.currentTime = 0;
-  sound.play().catch(e => console.log("Audio play failed:", e));
+  if (sound) {
+    sound.currentTime = 0;
+    sound.play().catch(e => console.log("Audio play failed:", e));
+  }
 
   setTimeout(function() {
     jumping = 0;
@@ -105,11 +133,18 @@ restartBtn.addEventListener("click", function() {
   location.reload();
 });
 
-// Event listeners for keyboard and touch
+// Event listeners for keyboard - FIXED: Same jump height as button
 window.addEventListener("keydown", function(e) {
-  if (e.code === "Space" || e.key === " " || e.key === "ArrowUp") {
+  if ((e.code === "Space" || e.key === " " || e.key === "ArrowUp") && gameRunning && canJump) {
     e.preventDefault();
+    
+    canJump = false; // Prevent additional jumps
     jump();
+    
+    // Re-enable jumping after a short delay
+    setTimeout(() => {
+      canJump = true;
+    }, 200);
   }
 });
 
@@ -119,4 +154,22 @@ createTouchControls();
 // Prevent context menu on long press
 document.addEventListener("contextmenu", function(e) {
   e.preventDefault();
+});
+
+// Additional safety: Prevent multiple simultaneous touches
+let isTouching = false;
+
+document.addEventListener('touchstart', function(e) {
+  if (isTouching) {
+    e.preventDefault();
+  }
+  isTouching = true;
+});
+
+document.addEventListener('touchend', function() {
+  isTouching = false;
+});
+
+document.addEventListener('touchcancel', function() {
+  isTouching = false;
 });

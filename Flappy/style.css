@@ -27,16 +27,17 @@ body {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* Large devices - Bigger container */
 #game-container {
   width: 100%;
-  max-width: 400px;
+  max-width: 500px; /* Increased from 400px */
   display: flex;
   justify-content: center;
   margin-top: 20px;
 }
 
 #game {
-  height: 500px;
+  height: 600px; /* Increased from 500px */
   width: 100%;
   border: 3px solid #333;
   overflow: hidden;
@@ -47,8 +48,8 @@ body {
 }
 
 #block {
-  width: 60px;
-  height: 500px;
+  width: 70px; /* Increased from 60px */
+  height: 600px; /* Increased from 500px */
   background: linear-gradient(to right, #228B22, #32CD32);
   position: relative;
   left: 100%;
@@ -62,26 +63,26 @@ body {
     left: 100%;
   }
   100% {
-    left: -60px;
+    left: -70px; /* Increased from -60px */
   }
 }
 
 #hole {
-  height: 150px;
-  width: 60px;
+  height: 180px; /* Increased from 150px */
+  width: 70px; /* Increased from 60px */
   background-color: #70c5ce;
   position: relative;
   left: 100%;
-  top: -500px;
+  top: -600px; /* Increased from -500px */
   animation: block 2.5s linear infinite;
 }
 
 #bird {
   position: absolute;
-  top: 100px;
-  left: 50px;
-  height: 50px;
-  width: 50px;
+  top: 120px; /* Increased from 100px */
+  left: 60px; /* Increased from 50px */
+  height: 60px; /* Increased from 50px */
+  width: 60px; /* Increased from 50px */
   transition: transform 0.1s;
   z-index: 10;
 }
@@ -93,9 +94,9 @@ body {
 }
 
 #result {
-  height: 200px;
+  height: 220px; /* Increased from 200px */
   width: 90%;
-  max-width: 400px;
+  max-width: 450px; /* Increased from 400px */
   background: linear-gradient(135deg, #8B4513, #A0522D);
   margin: 5rem auto;
   border: 3px solid white;
@@ -107,17 +108,17 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
-  padding: 20px;
+  padding: 25px; /* Increased from 20px */
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 }
 
 #btn {
-  padding: 12px 25px;
+  padding: 14px 28px; /* Increased from 12px 25px */
   border: none;
   border-radius: 8px;
   background: linear-gradient(135deg, #228B22, #32CD32);
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.3rem; /* Increased from 1.2rem */
   font-weight: bold;
   text-transform: uppercase;
   margin-top: 1.5rem;
@@ -137,42 +138,74 @@ body {
 
 #result h1 {
   color: white;
-  font-size: 2rem;
+  font-size: 2.2rem; /* Increased from 2rem */
   margin-bottom: 10px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #text {
   margin-top: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.6rem; /* Increased from 1.5rem */
   color: white;
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Responsive styles - FIXED HEIGHT ISSUE */
-@media (max-width: 768px) {
+/* Medium devices */
+@media (max-width: 1024px) {
   #game-container {
-    max-width: 350px;
+    max-width: 450px;
   }
   
   #game {
-    height: 450px;
+    height: 550px;
   }
   
   #block {
-    height: 450px;
+    height: 550px;
+    width: 65px;
   }
   
   #hole {
-    height: 130px;
-    top: -450px;
+    height: 160px;
+    width: 65px;
+    top: -550px;
   }
   
   #bird {
-    height: 45px;
-    width: 45px;
-    left: 40px;
+    height: 55px;
+    width: 55px;
+    left: 50px;
+    top: 110px;
+  }
+}
+
+/* Tablet devices */
+@media (max-width: 768px) {
+  #game-container {
+    max-width: 400px;
+  }
+  
+  #game {
+    height: 500px;
+  }
+  
+  #block {
+    height: 500px;
+    width: 60px;
+  }
+  
+  #hole {
+    height: 150px;
+    width: 60px;
+    top: -500px;
+  }
+  
+  #bird {
+    height: 50px;
+    width: 50px;
+    left: 45px;
+    top: 100px;
   }
   
   #score-display {
@@ -182,33 +215,90 @@ body {
   }
 }
 
+/* Mobile devices - Fixed double jump issue */
 @media (max-width: 480px) {
   body {
     padding: 5px;
     justify-content: flex-start;
+    /* Prevent double tap zoom */
+    touch-action: manipulation;
   }
   
   #game-container {
-    max-width: 320px;
+    max-width: 350px;
     margin-top: 60px;
   }
   
   #game {
-    height: 400px;
+    height: 450px;
     border-radius: 8px;
   }
   
   #block {
-    height: 400px;
-    width: 50px;
+    height: 450px;
+    width: 55px;
     animation-duration: 2s;
   }
   
   #hole {
-    height: 120px;
-    width: 50px;
-    top: -400px;
+    height: 140px;
+    width: 55px;
+    top: -450px;
     animation-duration: 2s;
+  }
+  
+  #bird {
+    height: 45px;
+    width: 45px;
+    left: 35px;
+    top: 90px;
+  }
+  
+  #score-display {
+    font-size: 1.1rem;
+    top: 10px;
+    left: 10px;
+  }
+  
+  #result {
+    height: 200px;
+    padding: 20px;
+    max-width: 320px;
+  }
+  
+  #result h1 {
+    font-size: 1.8rem;
+  }
+  
+  #text {
+    font-size: 1.4rem;
+  }
+  
+  #btn {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Small mobile devices - Fixed double jump completely */
+@media (max-width: 320px) {
+  #game-container {
+    max-width: 300px;
+  }
+  
+  #game {
+    height: 420px;
+  }
+  
+  #block {
+    height: 420px;
+    width: 50px;
+  }
+  
+  #hole {
+    height: 130px;
+    width: 50px;
+    top: -420px;
   }
   
   #bird {
@@ -219,63 +309,19 @@ body {
   }
   
   #score-display {
-    font-size: 1.1rem;
-    top: 10px;
-    left: 10px;
-  }
-  
-  #result {
-    height: 180px;
-    padding: 15px;
-  }
-  
-  #result h1 {
-    font-size: 1.7rem;
-  }
-  
-  #text {
-    font-size: 1.3rem;
-  }
-  
-  #btn {
-    padding: 10px 20px;
     font-size: 1rem;
+  }
+  
+  /* Prevent any double tap behavior */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
   }
 }
 
-@media (max-width: 320px) {
-  #game-container {
-    max-width: 280px;
-  }
-  
-  #game {
-    height: 380px;
-  }
-  
-  #block {
-    height: 380px;
-    width: 45px;
-  }
-  
-  #hole {
-    height: 110px;
-    width: 45px;
-    top: -380px;
-  }
-  
-  #bird {
-    height: 35px;
-    width: 35px;
-    left: 25px;
-    top: 70px;
-  }
-  
-  #score-display {
-    font-size: 1rem;
-  }
-}
-
-/* Touch controls for mobile */
+/* Touch controls for mobile - Fixed double jump */
 .touch-controls {
   position: fixed;
   bottom: 30px;
@@ -285,24 +331,28 @@ body {
   justify-content: center;
   z-index: 50;
   padding: 0 20px;
+  /* Prevent double tap */
+  touch-action: manipulation;
 }
 
 .touch-button {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   background: linear-gradient(135deg, #4CAF50, #45a049);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 15px;
-  font-size: 24px;
+  font-size: 28px;
   color: white;
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   border: 2px solid white;
+  /* Prevent double tap */
+  touch-action: manipulation;
 }
 
 .touch-button:active {
@@ -330,4 +380,20 @@ body::before {
     radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
   pointer-events: none;
   z-index: -1;
+}
+
+/* Game instructions */
+#instructions {
+  position: absolute;
+  bottom: 20px;
+  color: white;
+  text-align: center;
+  font-size: 0.9rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  #instructions {
+    display: none;
+  }
 }
