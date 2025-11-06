@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinosaur Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="score-display">Score: <span id="count">0</span></div>
+    
+    <div id="game-container">
+        <div id="dino-container">
+            <div id="ground"></div>
+            <div id="block"></div>
+            <div id="character">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="30" y="40" width="40" height="50" fill="#2c3e50" rx="10"/>
+                    <rect x="20" y="60" width="60" height="20" fill="#34495e" rx="5"/>
+                    <circle cx="35" cy="30" r="15" fill="#2c3e50"/>
+                    <circle cx="35" cy="30" r="8" fill="#ecf0f1"/>
+                    <rect x="15" y="75" width="15" height="8" fill="#7f8c8d" rx="3"/>
+                    <rect x="70" y="75" width="15" height="8" fill="#7f8c8d" rx="3"/>
+                    <polygon points="60,20 80,30 60,40" fill="#e74c3c"/>
+                </svg>
+            </div>
+        </div>
+        
+        <div id="controls">
+            <button id="jump-btn">JUMP</button>
+        </div>
+    </div>
+  
+    <div id="result">
+        <h1>Game Over</h1>
+        <p id="score"></p>
+        <button id="btn">Restart</button>
+    </div>
+    
+    <audio id="sound" src="sound.mp3" preload="auto"></audio>
+    <audio id="jump-sound" src="jump.mp3" preload="auto"></audio>
+
+    <script src="main.js"></script>
+</body>
+</html>

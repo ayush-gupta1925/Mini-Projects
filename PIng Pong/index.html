@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping Pong Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="score-display">
+        <span>Player: <span id="user-score">0</span></span>
+        <span>Computer: <span id="com-score">0</span></span>
+    </div>
+    
+    <div id="can">
+        <canvas id="myGame"></canvas>
+    </div>
+    
+    <div id="result">
+        <h1 id="win">Game Over</h1>
+        <p id="winner-text"></p>
+        <button id="btn">Restart</button>
+    </div>
+    
+    <audio id="hit-sound" src="hit-sound.mp3" preload="auto"></audio>
+    <audio id="wall-hit-sound" src="ani-big-pipe-hit-6814.mp3" preload="auto"></audio>
+
+    <script src="main.js"></script>
+</body>
+</html>

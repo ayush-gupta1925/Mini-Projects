@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .app-body {
+            padding: 30px;
+        }
+
+        .input-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .input-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #6a11cb;
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
+        }
+
+        button {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            align-self: flex-end;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .tasks-section {
+            margin-top: 20px;
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid #6a11cb;
+        }
+
+        .task-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-text {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .task-date {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6c757d;
+        }
+
+        .empty-state svg {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .input-section {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Todo App</h1>
+            <p class="subtitle">Organize your tasks with due dates</p>
+        </header>
+        
+        <div class="app-body">
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="task-input">Task</label>
+                    <input type="text" id="task-input" placeholder="Enter your task...">
+                </div>
+                
+                <div class="input-group">
+                    <label for="date-input">Due Date</label>
+                    <input type="date" id="date-input">
+                </div>
+                
+                <button id="add-btn">Add Task</button>
+            </div>
+            
+            <div class="tasks-section">
+                <h2>Your Tasks</h2>
+                <div id="empty-state" class="empty-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <h3>No tasks yet</h3>
+                    <p>Add a task using the form above to get started!</p>
+                </div>
+                <ul class="task-list" id="task-list">
+                    <!-- Tasks will be added here dynamically -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const taskInput = document.getElementById('task-input');
+            const dateInput = document.getElementById('date-input');
+            const addBtn = document.getElementById('add-btn');
+            const taskList = document.getElementById('task-list');
+            const emptyState = document.getElementById('empty-state');
+            
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.min = today;
+            
+            // Load tasks from localStorage
+            loadTasks();
+            
+            // Add task event listener
+            addBtn.addEventListener('click', addTask);
+            
+            // Allow adding task with Enter key
+            taskInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addTask();
+                }
+            });
+            
+            function addTask() {
+                const taskText = taskInput.value.trim();
+                const taskDate = dateInput.value;
+                
+                // Validate inputs
+                if (taskText === '') {
+                    alert('Please enter a task!');
+                    taskInput.focus();
+                    return;
+                }
+                
+                if (taskDate === '') {
+                    alert('Please select a due date!');
+                    dateInput.focus();
+                    return;
+                }
+                
+                // Create task object
+                const task = {
+                    id: Date.now(),
+                    text: taskText,
+                    date: taskDate,
+                    completed: false
+                };
+                
+                // Add task to the list
+                addTaskToDOM(task);
+                
+                // Save to localStorage
+                saveTask(task);
+                
+                // Clear inputs
+                taskInput.value = '';
+                dateInput.value = '';
+                taskInput.focus();
+                
+                // Hide empty state if it's the first task
+                if (emptyState.classList.contains('hidden') === false) {
+                    emptyState.classList.add('hidden');
+                }
+            }
+            
+            function addTaskToDOM(task) {
+                // Create task element
+                const taskItem = document.createElement('li');
+                taskItem.className = 'task-item';
+                taskItem.setAttribute('data-id', task.id);
+                
+                // Format date for display
+                const formattedDate = formatDate(task.date);
+                
+                // Create task content
+                taskItem.innerHTML = `
+                    <div class="task-content">
+                        <div class="task-text">${task.text}</div>
+                        <div class="task-date">Due: ${formattedDate}</div>
+                    </div>
+                    <button class="delete-btn">Delete</button>
+                `;
+                
+                // Add to the list
+                taskList.appendChild(taskItem);
+                
+                // Add delete functionality
+                const deleteBtn = taskItem.querySelector('.delete-btn');
+                deleteBtn.addEventListener('click', function() {
+                    deleteTask(task.id, taskItem);
+                });
+            }
+            
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString('en-US', options);
+            }
+            
+            function deleteTask(taskId, taskElement) {
+                // Remove from DOM
+                taskElement.remove();
+                
+                // Remove from localStorage
+                removeTaskFromStorage(taskId);
+                
+                // Show empty state if no tasks left
+                if (taskList.children.length === 0) {
+                    emptyState.classList.remove('hidden');
+                }
+            }
+            
+            function saveTask(task) {
+                let tasks = getTasksFromStorage();
+                tasks.push(task);
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+            }
+            
+            function getTasksFromStorage() {
+                let tasks;
+                if (localStorage.getItem('tasks') === null) {
+                    tasks = [];
+                } else {
+                    tasks = JSON.parse(localStorage.getItem('tasks'));
+                }
+                return tasks;
+            }
+            
+            function removeTaskFromStorage(taskId) {
+                let tasks = getTasksFromStorage();
+                tasks = tasks.filter(task => task.id !== taskId);
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+            }
+            
+            function loadTasks() {
+                let tasks = getTasksFromStorage();
+                
+                if (tasks.length === 0) {
+                    // Show empty state
+                    emptyState.classList.remove('hidden');
+                } else {
+                    // Hide empty state
+                    emptyState.classList.add('hidden');
+                    
+                    // Add each task to the DOM
+                    tasks.forEach(task => addTaskToDOM(task));
+                }
+            }
+        });
+    </script>
+</body>
+</html>

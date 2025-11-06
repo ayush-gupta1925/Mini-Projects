@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Game - Bat Ball Stump</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🏏 Cricket Game</h1>
+        
+        <div class="game-info">
+            <div class="score-board">
+                <div class="score-item">
+                    <span class="score-label">Won:</span>
+                    <span id="win-count" class="score-value">0</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">Lost:</span>
+                    <span id="loss-count" class="score-value">0</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">Tie:</span>
+                    <span id="tie-count" class="score-value">0</span>
+                </div>
+            </div>
+            
+            <button id="clear-score" class="clear-btn">
+                <i class="fas fa-trash-alt"></i>
+                Clear Score
+            </button>
+        </div>
+
+        <div class="choices">
+            <div class="choice-card" data-choice="Bat">
+                <div class="choice-icon bat-icon">
+                    <i class="fas fa-baseball-bat-ball"></i>
+                </div>
+                <span class="choice-text">BAT</span>
+            </div>
+
+            <div class="choice-card" data-choice="Ball">
+                <div class="choice-icon ball-icon">
+                    <i class="fas fa-baseball"></i>
+                </div>
+                <span class="choice-text">BALL</span>
+            </div>
+
+            <div class="choice-card" data-choice="Stump">
+                <div class="choice-icon stump-icon">
+                    <i class="fas fa-flag"></i>
+                </div>
+                <span class="choice-text">STUMP</span>
+            </div>
+        </div>
+
+        <div class="result-section">
+            <div class="result-card">
+                <h3><i class="fas fa-user"></i> Your Choice</h3>
+                <div id="user-choice" class="choice-display">
+                    <span class="placeholder">-</span>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <h3><i class="fas fa-laptop"></i> Computer's Choice</h3>
+                <div id="computer-choice" class="choice-display">
+                    <span class="placeholder">-</span>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <h3><i class="fas fa-trophy"></i> Result</h3>
+                <div id="game-result" class="result-display">
+                    <span class="placeholder">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="rules">
+            <h3><i class="fas fa-book"></i> Game Rules:</h3>
+            <ul>
+                <li><i class="fas fa-baseball-bat-ball"></i> <strong>Bat vs Ball:</strong> Bat Wins</li>
+                <li><i class="fas fa-baseball"></i> <strong>Ball vs Stump:</strong> Ball Wins</li>
+                <li><i class="fas fa-flag"></i> <strong>Stump vs Bat:</strong> Stump Wins</li>
+                <li><i class="fas fa-handshake"></i> <strong>Same Choice:</strong> It's a Tie!</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

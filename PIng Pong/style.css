@@ -1,0 +1,119 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: rgb(39,39,39);
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 10px;
+  overflow: hidden;
+}
+
+#score-display {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 500px;
+  padding: 0 10px;
+}
+
+#can{
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+#myGame {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  aspect-ratio: 2/3;
+  border: 2px solid white;
+  background-color: black;
+}
+
+#result{
+  height: 200px;
+  width: 90%;
+  max-width: 400px;
+  background-color: rgb(56, 56, 56);
+  margin: 1rem auto;
+  border-radius: 20px;
+  font-size: 24px;
+  text-align: center;
+  color: whitesmoke;
+  font-family: 'Courier New', Courier, monospace;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  padding: 20px;
+}
+
+#winner-text {
+  margin: 10px 0;
+  font-size: 20px;
+}
+
+#btn{
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: none;
+  color: rgb(0, 0, 0);
+  background-color: rgb(195, 195, 195);
+  font-size: 18px;
+  margin-top: 15px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace;
+  transition: background-color 0.3s;
+}
+
+#btn:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+/* Mobile-specific styles */
+@media (max-width: 480px) {
+  #score-display {
+    font-size: 1.2rem;
+  }
+  
+  #result {
+    height: 180px;
+    font-size: 20px;
+  }
+  
+  #winner-text {
+    font-size: 18px;
+  }
+  
+  #btn {
+    font-size: 16px;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (max-height: 600px) {
+  #can {
+    max-height: 70vh;
+  }
+}
